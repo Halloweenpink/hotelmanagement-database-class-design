@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ user['sname'] }}</h1>
+        <p>Your role: {{ user['srole'] }}</p>
+        <nav>
+            <a href="{{ url_for('staff_management') }}">
+                <img src="{{ url_for('static', filename='images/staff_icon.png') }}" alt="Staff Management">
+                Staff Management
+            </a>
+            <a href="{{ url_for('room') }}">
+                <img src="{{ url_for('static', filename='images/room_icon.png') }}" alt="Room Management">
+                Room Management
+            </a>
+            <a href="{{ url_for('report') }}">
+                <img src="{{ url_for('static', filename='images/report_icon.png') }}" alt="Reports">
+                Reports
+            </a>
+            <a href="{{ url_for('modify_password') }}">
+                <img src="{{ url_for('static', filename='images/password_icon.png') }}" alt="Modify Password">
+                Modify Password
+            </a>
+        </nav>
+        <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/staff.css') }}">
+    <! 在Web开发中，尤其是使用Flask这样的Python框架时，静态文件（如CSS、JavaScript、图片等）通常被组织在一个特定的目录中，默认情况下这个目录被命名为static。
+    Flask框架在配置中会指定这个目录为静态文件的根目录。
+    当你在HTML模板中引用静态文件时，使用{{ url_for('static', filename='路径') }}这样的Jinja2模板标签可以确保无论你的应用如何部署，静态文件的URL都是正确的。
+    这里的'static'是Flask内置的一个端点（endpoint），用于处理静态文件的请求。>
+</head>
+<body>
+    <div class="container">
+                        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <h1>Staff Management</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Sex</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>ID Card</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in staff %}
+                <tr>
+                    <td>{{ member.sid }}</td>
+                    <td>{{ member.sname }}</td>
+                    <td>{{ member.ssex }}</td>
+                    <td>{{ member.spassword }}</td>
+                    <td>{{ member.srole }}</td>
+                    <td>{{ member.sidcard }}</td>
+                    <td>{{ member.sphone }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Add New Staff</h2>
+        <form action="{{ url_for('staff_management') }}" method="post">
+            <label for="sid">ID:</label>
+            <input type="text" id="sid" name="sid" required>
+
+            <label for="sname">Name:</label>
+            <input type="text" id="sname" name="sname" required>
+
+            <label for="ssex">Sex:</label>
+            <select id="ssex" name="ssex" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label for="spassword">Password:</label>
+            <input type="password" id="spassword" name="spassword" required>
+
+            <label for="srole">Role:</label>
+            <input type="text" id="srole" name="srole" required>
+
+            <label for="sidcard">ID Card:</label>
+            <input type="text" id="sidcard" name="sidcard" required>
+
+            <label for="sphone">Phone:</label>
+            <input type="text" id="sphone" name="sphone" required>
+
+            <button type="submit">Add Staff</button>
+        </form>
+
+        <h2>Delete Staff</h2>
+        <form action="{{ url_for('staff_d') }}" method="post">
+            <label for="staff_delete">Staff ID to Delete:</label>
+            <input type="text" id="staff_delete" name="staff_delete" required>
+
+            <button type="submit">Delete Staff</button>
+        </form>
+
+        <a class="back" href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>
